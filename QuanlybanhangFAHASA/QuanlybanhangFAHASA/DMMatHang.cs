@@ -244,5 +244,31 @@ namespace QuanlybanhangFAHASA
             btnsau.Enabled = false;
             btncuoi.Enabled = false;
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTimKiem_KeyUp(object sender, KeyEventArgs e)
+        {
+            string str = "select * from MatHang where TenMH like '%" + txtTimKiem.Text.Trim() + "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvMatHang.DataSource = dt;
+
+            clearBindinds();
+
+            txtMaMh.DataBindings.Add("text", dt, "MaMH");
+            txtTenMh.DataBindings.Add("text", dt, "TenMH");
+            txtSlTon.DataBindings.Add("text", dt, "SlTon");
+            txtDgNhap.DataBindings.Add("text", dt, "GiaNhap");
+            txtDgBan.DataBindings.Add("text", dt, "GiaBan");
+            txtMLH.DataBindings.Add("text", dt, "MaLoaiHang");
+            txtMaDV.DataBindings.Add("text", dt, "MaDV");
+
+            MyBMB = this.BindingContext[dt];
+        }
     }
 }

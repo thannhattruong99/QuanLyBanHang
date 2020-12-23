@@ -266,6 +266,51 @@ namespace QuanlybanhangFAHASA
         {
             this.Close();
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string str = "select * from NhanVien where HoTenNV like '%" + txtTimKiem.Text.Trim() + "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvNhanVien.DataSource = dt;
+
+            clearBindings();
+
+            txtMaNhanVien.DataBindings.Add("text", dt, "MaNV");
+            txtTenNhanVien.DataBindings.Add("text", dt, "HoTenNV");
+            txtNgaySinh.DataBindings.Add("text", dt, "NgaySinhNV");
+            txtGioitinh.DataBindings.Add("text", dt, "GioiTinh");
+            txtDiaChi.DataBindings.Add("text", dt, "DiaChi");
+            txtDTNV.DataBindings.Add("text", dt, "SDTNV");
+            txtMaCV.DataBindings.Add("text", dt, "MaCV");
+            MyBMB = this.BindingContext[dt];
+        }
+
+        private void txtTimKiem_KeyUp(object sender, KeyEventArgs e)
+        {
+            string str = "select * from NhanVien where HoTenNV like '%" + txtTimKiem.Text.Trim() + "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvNhanVien.DataSource = dt;
+
+            clearBindings();
+
+            txtMaNhanVien.DataBindings.Add("text", dt, "MaNV");
+            txtTenNhanVien.DataBindings.Add("text", dt, "HoTenNV");
+            txtNgaySinh.DataBindings.Add("text", dt, "NgaySinhNV");
+            txtGioitinh.DataBindings.Add("text", dt, "GioiTinh");
+            txtDiaChi.DataBindings.Add("text", dt, "DiaChi");
+            txtDTNV.DataBindings.Add("text", dt, "SDTNV");
+            txtMaCV.DataBindings.Add("text", dt, "MaCV");
+            MyBMB = this.BindingContext[dt];
+        }
     }
 }
 

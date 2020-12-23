@@ -219,5 +219,21 @@ namespace QuanlybanhangFAHASA
         {
             this.Close();
         }
+
+        private void txtTimKiem_KeyUp(object sender, KeyEventArgs e)
+        {
+            string str = "select * from LoaiHang where TenLoaiHang like '%" + txtTimKiem.Text.Trim()+ "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvLoaiHang.DataSource = dt;
+
+            clearBindings();
+
+            txtMaLoaiHang.DataBindings.Add("text", dt, "MaLoaiHang");
+            txtTenLoaiHang.DataBindings.Add("text", dt, "TenLoaiHang");
+
+            MyBMB = this.BindingContext[dt];
+        }
     }
 }

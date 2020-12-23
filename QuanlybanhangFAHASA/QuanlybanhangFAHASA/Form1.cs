@@ -12,6 +12,8 @@ namespace QuanlybanhangFAHASA
 {
     public partial class FrmMain : Form
     {
+        FormDangNhap frDangNhap = new FormDangNhap();
+
         public FrmMain()
         {
             InitializeComponent();
@@ -25,15 +27,21 @@ namespace QuanlybanhangFAHASA
         private void mnuNhanVien_Click(object sender, EventArgs e)
         {
             DMNhanVien frm = new DMNhanVien();
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
            
         }
 
         private void mnuLoaihang_Click(object sender, EventArgs e)
         {
             DMLoaiHang frm = new DMLoaiHang();
-            //frm.MdiParent = this;
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void mnuThoat_Click(object sender, EventArgs e)
@@ -44,36 +52,61 @@ namespace QuanlybanhangFAHASA
         private void mnuKhachhang_Click(object sender, EventArgs e)
         {
             DMKhachHang frm = new DMKhachHang();
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void mnuMathang_Click(object sender, EventArgs e)
         {
             DMMatHang frm = new DMMatHang();
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void chiTiếtHóaĐơnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DMChiTietHoaDon frm = new DMChiTietHoaDon();
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void mnuHoadonban_Click(object sender, EventArgs e)
         {
             DMHoaDon frm = new DMHoaDon();
-            frm.Show();
+            if (frDangNhap.isLogined)
+                frm.Show();
+            else
+                MessageBox.Show("Vui lòng đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void đăngNhậpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormDangNhap frm = new FormDangNhap();
-            frm.Show();
+            frDangNhap.Show();
         }
 
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            frDangNhap.isLogined = false;
+        }
+
+        private void mnuFile_Click(object sender, EventArgs e)
+        {
+            if (frDangNhap.isLogined)
+            {
+                this.đăngXuấtToolStripMenuItem.Visible = true;
+                this.đăngNhậpToolStripMenuItem.Visible = false;
+            }
+            else
+            {
+                this.đăngXuấtToolStripMenuItem.Visible = false;
+                this.đăngNhậpToolStripMenuItem.Visible = true;
+            }
         }
     }
 }
