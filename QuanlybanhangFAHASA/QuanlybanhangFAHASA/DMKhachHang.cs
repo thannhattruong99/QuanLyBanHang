@@ -251,6 +251,47 @@ namespace QuanlybanhangFAHASA
         {
             this.Close();
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string str = "select * from KhachHang where HoTenKH like '%" + txtTimKiem.Text.Trim() + "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvKhachHang.DataSource = dt;
+
+            clearBindings();
+
+            txtMaKhachHang.DataBindings.Add("text", dt, "MaKH");
+            txtTenKhachhang.DataBindings.Add("text", dt, "HoTenKH");
+            txtDC.DataBindings.Add("text", dt, "DiaChiKH");
+            txtSdt.DataBindings.Add("text", dt, "SDTKH");
+
+            MyBMB = this.BindingContext[dt];
+        }
+
+        private void txtTimKiem_KeyUp(object sender, KeyEventArgs e)
+        {
+            string str = "select * from KhachHang where HoTenKH like '%" + txtTimKiem.Text.Trim() + "%'";
+            SqlDataAdapter da = new SqlDataAdapter(str, data.getConnect());
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvKhachHang.DataSource = dt;
+
+            clearBindings();
+
+            txtMaKhachHang.DataBindings.Add("text", dt, "MaKH");
+            txtTenKhachhang.DataBindings.Add("text", dt, "HoTenKH");
+            txtDC.DataBindings.Add("text", dt, "DiaChiKH");
+            txtSdt.DataBindings.Add("text", dt, "SDTKH");
+
+            MyBMB = this.BindingContext[dt];
+        }
     }
 }
 

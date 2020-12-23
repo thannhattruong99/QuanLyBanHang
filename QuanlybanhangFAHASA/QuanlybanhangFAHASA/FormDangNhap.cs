@@ -13,6 +13,9 @@ namespace QuanlybanhangFAHASA
 {
     public partial class FormDangNhap : Form
     {
+        public Boolean isLogined = false;
+        ketnoi data = new ketnoi();
+
         public FormDangNhap()
         {
             InitializeComponent();
@@ -22,48 +25,28 @@ namespace QuanlybanhangFAHASA
         {
 
         }
-        private string KetNoiCTCSDL(string MayChu, string CSDL, string NguoiDung, string MatKhau)
-        {
-            string strError = "";
-/*            NguoiDung = "truongtn";
-            MatKhau = "Admin@1999";*/
-            string strcon = "Data Source=" + MayChu + ";";
-            strcon += "Initial Catalog=" + CSDL + ";";
-            strcon += "Persist Security Info=True;User ID=" + NguoiDung + ";Password=" + MatKhau;
-            /*"Data Source=truongtn-db.database.windows.net;Initial Catalog=BANHANGFAHASA;Persist Security Info=True;User ID=truongtn;Password=Admin@1999"*/
-            SqlConnection sqlConn = new SqlConnection(strcon);
-            // Kiểm soát lỗi
-            try
-            {
-                // Mở kết nối
-                sqlConn.Open();
-            }
-            catch (Exception ex)
-            {
-                strError = ex.Message;
-            }
-            return strError;
-        }
+    
 
         private void btnKetNoi_Click(object sender, EventArgs e)
         {
-            // Kết nối thông qua gọi phương thức KetNoiCSDL
-            string strError = "";
-            if ((txtMayChu.Text == "") || (txtCSDL.Text == "") || (txtNguoiDung.Text == "") || (txtMatKhau.Text == ""))
+            string str = "select * from TaiKhoan where TenNguoiDung = '" + txtNguoiDung.Text.Trim() + "' and MatKhau = '"+ txtMatKhau.Text.Trim() + "'";
+            Console.WriteLine("QUERY: " + str);
+            int affectedRows = data.ExecuteQuery(str).Rows.Count;
+            if(affectedRows > 0)
             {
-                MessageBox.Show("Bạn phải nhập đầy đủ thông tin");
-                return;
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                isLogined = true;
+                this.Hide();
             }
-            strError = KetNoiCTCSDL(txtMayChu.Text, txtCSDL.Text, txtNguoiDung.Text, txtMatKhau.Text);
-            if (strError != "")
-                MessageBox.Show("Kết nối không thành công");
             else
-                MessageBox.Show("Kết nối thành công", "KetNoiSQL");
+            {
+                MessageBox.Show("Tên người dùng hoặc mật khẩu không chính xác! Vui lòng thử lại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }
